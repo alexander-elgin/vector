@@ -17,6 +17,19 @@ describe('Vector', () => {
     });
   });
 
+  describe('#getCrossProduct', () => {
+    it('returns cross product of 2D vectors', () => {
+      const vector = new Vector([1, 2]);
+      const anotherVector = new Vector([3, 4]);
+      expect(vector.getCrossProduct(anotherVector).valueOf()).toBe(-2);
+    });
+    it('returns cross product of 3D vectors', () => {
+      const vector = new Vector([5, 1, 7]);
+      const anotherVector = new Vector([2, 4, 6]);
+      expect(vector.getCrossProduct(anotherVector).getComponents()).toEqual([-22, -16, 18]);
+    });
+  });
+
   describe('#getDifference', () => {
     it('returns difference of the vectors', () => {
       const vector = new Vector([1, 2, 3]);

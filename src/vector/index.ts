@@ -1,4 +1,14 @@
-class Vector {
+interface CrossProductResult {
+  getComponents(): any,
+}
+
+class Scalar extends Number implements CrossProductResult {
+  getComponents() {
+    return this.valueOf();
+  }
+}
+
+class Vector implements CrossProductResult {
   protected components: number[] = [];
 
   constructor(components: number[]) {
@@ -7,6 +17,20 @@ class Vector {
 
   getComponents(): number[] {
     return this.components;
+  }
+
+  getCrossProduct(v: Vector): CrossProductResult {
+    if (this.getSize() > 3 || this.getSize() < 2) {
+      throw new Error("Only 2D & 3D cross product is supported");
+    } else if (this.getSize() === 2) {
+      return new Scalar(this.components[0] * v.getComponents()[1] - this.components[1] * v.getComponents()[0]);
+    } else {
+      return new Vector([
+        this.components[1] * v.getComponents()[2] - this.components[2] * v.getComponents()[1],
+        this.components[2] * v.getComponents()[0] - this.components[0] * v.getComponents()[2],
+        this.components[0] * v.getComponents()[1] - this.components[1] * v.getComponents()[0],
+      ]);
+    }
   }
 
   getDifference(v: Vector): Vector {
